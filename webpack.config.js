@@ -1,4 +1,6 @@
 const { join: pathJoin } = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const { NODE_ENV } = process.env;
 
@@ -17,6 +19,25 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+
+      {
+        test: /\.scss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          'postcss-loader',
+          'sass-loader',
+        ],
+      }
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new MiniCssExtractPlugin(),
+  ],
 };
