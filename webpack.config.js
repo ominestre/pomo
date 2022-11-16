@@ -1,4 +1,4 @@
-const { join: pathJoin } = require('path')
+const { join: pathJoin } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -16,10 +16,19 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', { targets: 'defaults' }],
+              ],
+            },
+          },
+          'ts-loader',
+        ],
         exclude: /node_modules/,
       },
-
       {
         test: /\.scss$/i,
         use: [
@@ -33,7 +42,7 @@ module.exports = {
           'postcss-loader',
           'sass-loader',
         ],
-      }
+      },
     ],
   },
   plugins: [
