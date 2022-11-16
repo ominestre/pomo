@@ -1,0 +1,14 @@
+{
+  "name": "pomo",
+  "version": "0.0.0",
+  "description": "A combination of a pomodoro timer and TODO app to help iterate and focus on productivity of tasks",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "scripts": {
+    "build": "webpack"
+  }
+}
