@@ -3,6 +3,6 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 
-[*.{ts,tsx,scss}]
+[*.{ts,tsx,scss,ejs}]
 charset = utf-8
 indent_size = 2

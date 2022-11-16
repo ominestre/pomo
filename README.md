@@ -19,3 +19,9 @@ but do not need to be compiled or altered at build time.
 
 - `yarn run build` will build the entire application and output deploy ready
 files to `dist/`
+
+
+### Automagic to be aware of
+
+- The webpack HTML plugin automatically compiles `.ejs` so the `src/index.ejs` is
+used implicitly.
