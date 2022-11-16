@@ -7,6 +7,9 @@ const { NODE_ENV } = process.env;
 module.exports = {
   mode: NODE_ENV || 'development',
   devtool: NODE_ENV === 'production' ? false : 'source-map',
+  devServer: {
+    static: './dist',
+  },
   entry: './src/index.ts',
   output: {
     path: pathJoin(__dirname, './dist/'),

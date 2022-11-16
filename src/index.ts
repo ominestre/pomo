@@ -1,3 +1,4 @@
 import './style.scss';
 
-console.log('hello');
+console.log('hello there!');
+console.log('General Kenobi!');
