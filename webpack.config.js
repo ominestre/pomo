@@ -10,4 +10,13 @@ module.exports = {
     path: pathJoin(__dirname, './dist/'),
     clean: true,
   },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
 };
