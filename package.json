@@ -6,8 +6,12 @@
   "private": true,
   "devDependencies": {
     "css-loader": "^6.7.2",
+    "eslint": "^8.27.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
+    "postcss": "^8.4.19",
     "postcss-loader": "^7.0.1",
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
@@ -17,6 +21,7 @@
     "webpack-cli": "^4.10.0"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "lint": "eslint src/**/*.ts"
   }
 }
