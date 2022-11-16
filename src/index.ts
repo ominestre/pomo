@@ -1,4 +1,20 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import './style.scss';
 
-console.log('hello there!');
-console.log('General Kenobi!');
+import App from './components/App'
+
+const rootElement = document.getElementById('root')!;
+
+if (rootElement === null) {
+  /* TODO hook-up application error monitoring and log a critical failure due
+    missing root element */
+}
+
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
+  React.createElement(
+    App
+  )
+);

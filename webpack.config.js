@@ -10,6 +10,9 @@ module.exports = {
   devServer: {
     static: './dist',
   },
+  resolve: {
+    extensions: ['.js', '.ts', '.tsx'],
+  },
   entry: './src/index.ts',
   output: {
     path: pathJoin(__dirname, './dist/'),
