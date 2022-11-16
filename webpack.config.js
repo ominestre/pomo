@@ -1,4 +1,4 @@
-const { resolve: pathResolve } = require('path')
+const { join: pathJoin } = require('path')
 
 const { NODE_ENV } = process.env;
 
@@ -7,7 +7,7 @@ module.exports = {
   devtool: NODE_ENV === 'production' ? false : 'source-map',
   entry: './src/index.ts',
   output: {
-    path: pathResolve(__dirname, './dist/'),
-    // clean: true,
+    path: pathJoin(__dirname, './dist/'),
+    clean: true,
   },
 };
