@@ -19,6 +19,26 @@ export const timerSlice = createSlice({
   initialState,
   reducers: {
     startTimer: (state) => ({ ...state, isTimerActive: true }),
+
+    stopTimer: (state) => ({ ...state, isTimerActive: false }),
+
+    decrementTimer: (state) => {
+      if (state.seconds === 0) {
+        if (state.minutes === 0) {
+          return { ...state, seconds: 0, minutes: 0 };
+        } else {
+          return { ...state, seconds: 59, minutes: state.minutes - 1 };
+        }
+      }
+
+      return { ...state, seconds: state.seconds - 1 };
+    },
+
+    resetTimer: (state) => ({
+      ...state,
+      minutes: initialState.minutes,
+      seconds: initialState.seconds,
+    }),
   },
 });
 
@@ -27,6 +47,11 @@ export const selectTime = (state: RootState) => ({
   minutes: state.timer.minutes,
 });
 
-export const { startTimer } = timerSlice.actions;
+export const { 
+  startTimer,
+  stopTimer,
+  decrementTimer,
+  resetTimer
+} = timerSlice.actions;
 
 export default timerSlice.reducer;
