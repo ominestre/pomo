@@ -8,7 +8,7 @@ export interface TimerState {
   isTimerActive: boolean,
 }
 
-const initialState: TimerState = {
+export const initialState: TimerState = {
   seconds: 0,
   minutes: 25,
   isTimerActive: false,
@@ -18,19 +18,7 @@ export const timerSlice = createSlice({
   name: 'timer',
   initialState,
   reducers: {
-    decrementTimer: (state) => {
-      if (state.seconds === 0) {
-        if (state.minutes === 0) {
-          state.minutes = 0;
-          state.seconds = 0;
-        } else {
-          state.minutes--;
-          state.seconds = 59;
-        }
-      } else {
-        state.seconds--;
-      }
-    },
+    startTimer: (state) => ({ ...state, isTimerActive: true }),
   },
 });
 
@@ -39,6 +27,6 @@ export const selectTime = (state: RootState) => ({
   minutes: state.timer.minutes,
 });
 
-export const { decrementTimer } = timerSlice.actions;
+export const { startTimer } = timerSlice.actions;
 
 export default timerSlice.reducer;
