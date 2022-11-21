@@ -1,8 +1,10 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
+import { store } from './state/store';
 import './style.scss';
 
-import App from './components/App'
+import App from './App'
 
 const rootElement = document.getElementById('root')!;
 
@@ -14,7 +16,9 @@ if (rootElement === null) {
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-  React.createElement(
-    App
-  )
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );

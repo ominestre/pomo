@@ -13,7 +13,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
   },
-  entry: './src/index.ts',
+  entry: './src/index.tsx',
   output: {
     path: pathJoin(__dirname, './dist/'),
     clean: true,
