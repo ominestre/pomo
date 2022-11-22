@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Reducer } from 'react';
 import { RootState } from '../../state/store';
 
 export interface TimerState {
@@ -12,7 +11,7 @@ export const initialState: TimerState = {
   seconds: 0,
   minutes: 25,
   isTimerActive: false,
-}
+};
 
 export const timerSlice = createSlice({
   name: 'timer',
@@ -26,9 +25,9 @@ export const timerSlice = createSlice({
       if (state.seconds === 0) {
         if (state.minutes === 0) {
           return { ...state, seconds: 0, minutes: 0 };
-        } else {
-          return { ...state, seconds: 59, minutes: state.minutes - 1 };
         }
+
+        return { ...state, seconds: 59, minutes: state.minutes - 1 };
       }
 
       return { ...state, seconds: state.seconds - 1 };
@@ -47,11 +46,13 @@ export const selectTime = (state: RootState) => ({
   minutes: state.timer.minutes,
 });
 
-export const { 
+export const selectIsTimerActive = (state: RootState) => state.timer.isTimerActive;
+
+export const {
   startTimer,
   stopTimer,
   decrementTimer,
-  resetTimer
+  resetTimer,
 } = timerSlice.actions;
 
 export default timerSlice.reducer;

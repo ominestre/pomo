@@ -1,7 +1,12 @@
 module.exports = {
   extends: 'airbnb-base',
+  parser: '@typescript-eslint/parser',
+  plugins: [
+    '@typescript-eslint',
+  ],
   env: {
     node: true,
+    browser: true,
   },
   rules: {
     'arrow-parens': 'off',

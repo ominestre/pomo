@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { store } from './state/store';
 import './style.scss';
 
-import App from './App'
+import App from './App';
 
 const rootElement = document.getElementById('root')!;
 
@@ -20,5 +20,5 @@ root.render(
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
