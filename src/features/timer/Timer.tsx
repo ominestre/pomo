@@ -1,12 +1,25 @@
 import React from 'react';
 
-interface TimerProps {}
+interface TimerProps {
+  sessionLength?: {
+    work?: number,
+    shortBreak?: number,
+    longBreak?: number,
+  }
+}
 
 interface TimerState {
   minutes: number,
   seconds: number,
   isTimerActive: boolean,
   intervalID: ReturnType<typeof setInterval> | null,
+  timerMode: 'work' | 'short-break' | 'long-break',
+  cyclesCompleted: number,
+  sessionLength: {
+    work: number,
+    shortBreak: number,
+    longBreak: number,
+  }
 }
 
 const padLeadingZeros = (val: number | string): string =>
@@ -21,14 +34,58 @@ class Timer extends React.Component<TimerProps, TimerState> {
       seconds: 0,
       isTimerActive: false,
       intervalID: null,
+      timerMode: 'work',
+      cyclesCompleted: 0,
+      sessionLength: {
+        work: props.sessionLength?.work || 25,
+        shortBreak: props.sessionLength?.shortBreak || 5,
+        longBreak: props.sessionLength?.longBreak || 15,
+      },
     };
   }
 
+  setTimerMode = () => {
+    const { timerMode, cyclesCompleted } = this.state;
+
+    if (timerMode === 'work') {
+      /*  `cyclesCompleted + 1` used because we want to know the count including
+          the cycle currently being completed */
+      if (cyclesCompleted !== 0 && (cyclesCompleted + 1) % 4 === 0) {
+        this.setState(state => ({
+          timerMode: 'long-break',
+          seconds: 0,
+          minutes: state.sessionLength.longBreak,
+        }));
+      } else {
+        this.setState(state => ({
+          timerMode: 'short-break',
+          seconds: 0,
+          minutes: state.sessionLength.shortBreak,
+        }));
+      }
+    } else {
+      this.setState(state => ({
+        timerMode: 'work',
+        seconds: 0,
+        minutes: state.sessionLength.work,
+      }));
+    }
+  };
+
+  completeCycle = () => {
+    // TODO: play the completion sound
+    this.stopTimer();
+    this.setTimerMode();
+    this.setState(state => ({
+      cyclesCompleted: state.cyclesCompleted + 1,
+    }));
+  };
+
   tick = () => {
     if (this.state.seconds === 0) {
-      if (this.state.minutes === 0) this.setState({ minutes: 0, seconds: 0 });
-
-      else {
+      if (this.state.minutes === 0) {
+        this.completeCycle();
+      } else {
         this.setState(state => ({
           minutes: state.minutes - 1,
           seconds: 59,
