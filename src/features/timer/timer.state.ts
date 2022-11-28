@@ -1,58 +1,120 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../state/store';
+
+type TimerMode = 'work' | 'shortBreak' | 'longBreak';
+
+type IntervalTimer = ReturnType<typeof setInterval>;
+
+interface SessionLengths {
+  work: number,
+  shortBreak: number,
+  longBreak: number,
+}
+
+interface StartTimerPayload {
+  payload: IntervalTimer,
+  [key: string]: any,
+}
 
 export interface TimerState {
-  seconds: number,
   minutes: number,
+  seconds: number,
   isTimerActive: boolean,
+  intervalID: IntervalTimer | null,
+  timerMode: TimerMode,
+  cyclesCompleted: number,
+  sessionLength: SessionLengths,
 }
 
 export const initialState: TimerState = {
-  seconds: 0,
   minutes: 25,
+  seconds: 0,
   isTimerActive: false,
+  intervalID: null,
+  timerMode: 'work',
+  cyclesCompleted: 0,
+  sessionLength: {
+    work: 25,
+    shortBreak: 5,
+    longBreak: 15,
+  },
 };
 
 export const timerSlice = createSlice({
   name: 'timer',
+
   initialState,
+
   reducers: {
-    startTimer: (state) => ({ ...state, isTimerActive: true }),
+    completeCycle: state => {
+      if (state.intervalID !== null) clearInterval(state.intervalID);
 
-    stopTimer: (state) => ({ ...state, isTimerActive: false }),
+      let newTimerMode: TimerMode = 'work';
+      const { timerMode, cyclesCompleted } = state;
 
-    decrementTimer: (state) => {
-      if (state.seconds === 0) {
-        if (state.minutes === 0) {
-          return { ...state, seconds: 0, minutes: 0 };
+      if (timerMode === 'work') {
+        if (cyclesCompleted !== 0 && (cyclesCompleted + 1) % 4 === 0) {
+          newTimerMode = 'longBreak';
+        } else {
+          newTimerMode = 'shortBreak';
         }
-
-        return { ...state, seconds: 59, minutes: state.minutes - 1 };
       }
 
-      return { ...state, seconds: state.seconds - 1 };
+      return {
+        ...state,
+        intervalID: null,
+        cyclesCompleted: state.timerMode === 'work'
+          ? state.cyclesCompleted + 1
+          : state.cyclesCompleted,
+        isTimerActive: false,
+        seconds: 0,
+        minutes: state.sessionLength[newTimerMode],
+        timerMode: newTimerMode,
+      };
     },
 
-    resetTimer: (state) => ({
+    tick: state => {
+      const { minutes, seconds } = state;
+
+      if (seconds === 0) {
+        if (minutes === 0) return state;
+
+        return { ...state, minutes: minutes - 1, seconds: 59 };
+      }
+
+      return { ...state, seconds: seconds - 1 };
+    },
+
+    startTimer: (state, { payload }: StartTimerPayload) => ({
       ...state,
-      minutes: initialState.minutes,
-      seconds: initialState.seconds,
+      isTimerActive: true,
+      intervalID: payload,
     }),
+
+    stopTimer: state => {
+      if (state.intervalID !== null) clearInterval(state.intervalID);
+
+      return { ...state, isTimerActive: false, intervalID: null };
+    },
+
+    resetTimer: (state: TimerState) => {
+      if (state.intervalID !== null) clearInterval(state.intervalID);
+
+      return {
+        ...state,
+        intervalID: null,
+        isTimerActive: false,
+        minutes: state.sessionLength[state.timerMode],
+      };
+    },
   },
 });
 
-export const selectTime = (state: RootState) => ({
-  seconds: state.timer.seconds,
-  minutes: state.timer.minutes,
-});
-
-export const selectIsTimerActive = (state: RootState) => state.timer.isTimerActive;
-
 export const {
-  startTimer,
-  stopTimer,
-  decrementTimer,
   resetTimer,
+  stopTimer,
+  startTimer,
+  tick,
+  completeCycle,
 } = timerSlice.actions;
 
 export default timerSlice.reducer;
