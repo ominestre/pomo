@@ -104,6 +104,7 @@ export const timerSlice = createSlice({
         intervalID: null,
         isTimerActive: false,
         minutes: state.sessionLength[state.timerMode],
+        seconds: 0,
       };
     },
   },

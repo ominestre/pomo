@@ -97,21 +97,36 @@ describe('Timer state interactions', () => {
       const state: TimerState = { ...initialState, minutes: 23 };
 
       expect(timerReducer(state, resetTimer()))
-        .toMatchObject({ isTimerActive: false, minutes: 25, intervalID: null });
+        .toMatchObject({
+          isTimerActive: false,
+          minutes: 25,
+          seconds: 0,
+          intervalID: null,
+        });
     });
 
     test('Should reset to 5 minutes in short break mode', () => {
       const state: TimerState = { ...initialState, minutes: 3, timerMode: 'shortBreak' };
 
       expect(timerReducer(state, resetTimer()))
-        .toMatchObject({ isTimerActive: false, minutes: 5, intervalID: null });
+        .toMatchObject({
+          isTimerActive: false,
+          minutes: 5,
+          seconds: 0,
+          intervalID: null,
+        });
     });
 
     test('Should reset to 15 minutes in long break mode', () => {
       const state: TimerState = { ...initialState, minutes: 2, timerMode: 'longBreak' };
 
       expect(timerReducer(state, resetTimer()))
-        .toMatchObject({ isTimerActive: false, minutes: 15, intervalID: null });
+        .toMatchObject({
+          isTimerActive: false,
+          minutes: 15,
+          seconds: 0,
+          intervalID: null,
+        });
     });
   });
 
