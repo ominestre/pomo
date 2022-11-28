@@ -35,7 +35,7 @@ export const Timer = () => {
       className="container-fluid d-flex flex-wrap justify-content-center text-bg-secondary py-5"
     >
       <div className="pomodoro-timer__timer-display">
-        <span className="pomodoro-timer__time-display px-5 fs-1 fw-semibold">{formatTime()}</span>
+        <h1 className="pomodoro-timer__time-display px-5 fw-semibold">{formatTime()}</h1>
       </div>
 
       <div className="pomodoro-timer__controls d-flex flex-nowrap">

@@ -3,7 +3,9 @@ import Timer from './features/timer/Timer';
 
 function App() {
   return (
-    <Timer />
+    <header>
+      <Timer />
+    </header>
   );
 }
 
