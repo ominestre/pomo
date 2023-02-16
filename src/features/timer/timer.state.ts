@@ -14,6 +14,7 @@ export interface TimerState {
   minutes: number,
   seconds: number,
   isTimerActive: boolean,
+  isTimerPaused: boolean,
   intervalID: IntervalTimer | null,
   timerMode: TimerMode,
   cyclesCompleted: number,
@@ -24,6 +25,7 @@ export const initialState: TimerState = {
   minutes: 25,
   seconds: 0,
   isTimerActive: false,
+  isTimerPaused: false,
   intervalID: null,
   timerMode: 'work',
   cyclesCompleted: 0,
@@ -87,13 +89,19 @@ export const timerSlice = createSlice({
     startTimer: (state, { payload }: { payload: IntervalTimer }) => ({
       ...state,
       isTimerActive: true,
+      isTimerPaused: false,
       intervalID: payload,
     }),
 
     stopTimer: state => {
       if (state.intervalID !== null) clearInterval(state.intervalID);
 
-      return { ...state, isTimerActive: false, intervalID: null };
+      return {
+        ...state,
+        isTimerActive: false,
+        isTimerPaused: true,
+        intervalID: null,
+      };
     },
 
     resetTimer: (state: TimerState) => {
@@ -103,6 +111,7 @@ export const timerSlice = createSlice({
         ...state,
         intervalID: null,
         isTimerActive: false,
+        isTimerPaused: false,
         minutes: state.sessionLength[state.timerMode],
         seconds: 0,
       };

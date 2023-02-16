@@ -52,7 +52,11 @@ export const Timer = () => {
       </div>
 
       <div className="pomodoro-timer__timer-display">
+        <span className={
+          (currentState.isTimerActive ? 'active' : '') + (currentState.isTimerPaused ? 'paused' : '')
+        }>
         {formatTime()}
+        </span>
       </div>
 
       <div className="pomodoro-timer__controls">
