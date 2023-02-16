@@ -14,7 +14,11 @@ export const Timer = () => {
     return `${minutes}:${seconds}`;
   };
 
-  const stopTimer = () => dispatch(timerState.stopTimer());
+  const stopTimer = () => {
+    if (currentState.isTimerActive) {
+      dispatch(timerState.stopTimer());
+    }
+  };
 
   const tick = () => dispatch(timerState.tick());
 
@@ -55,7 +59,7 @@ export const Timer = () => {
         <span className={
           (currentState.isTimerActive ? 'active' : '') + (currentState.isTimerPaused ? 'paused' : '')
         }>
-        {formatTime()}
+          {formatTime()}
         </span>
       </div>
 
