@@ -1,0 +1,27 @@
+// $color-bg: #272727;
+// $color-primary: #d4aa7d;
+// $color-secondary: #efd09e;
+// $color-tertiary: #d2d8b3;
+// $color-accent: #90a9b7;
+
+$color-bg: #282b28;
+$color-primary: #a24936;
+$color-secondary: #d36135;
+$color-tertiary: #3e5641;
+$color-accent: #4ba3c3;
+
+$color-light: #ddd;
+$color-dark: #282b28;
+
+body {
+  margin: 0;
+  background-color: $color-bg;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  color: #ccc
+}
+
+header {
+  background-color: $color-primary;
+}
+
+@import "./features/timer/timer";

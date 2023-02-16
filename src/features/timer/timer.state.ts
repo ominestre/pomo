@@ -10,11 +10,6 @@ interface SessionLengths {
   longBreak: number,
 }
 
-interface StartTimerPayload {
-  payload: IntervalTimer,
-  [key: string]: any,
-}
-
 export interface TimerState {
   minutes: number,
   seconds: number,
@@ -72,6 +67,11 @@ export const timerSlice = createSlice({
       };
     },
 
+    setCycleMode: (state, { payload }: { payload: TimerMode}) => ({
+      ...state,
+      timerMode: payload,
+    }),
+
     tick: state => {
       const { minutes, seconds } = state;
 
@@ -84,7 +84,7 @@ export const timerSlice = createSlice({
       return { ...state, seconds: seconds - 1 };
     },
 
-    startTimer: (state, { payload }: StartTimerPayload) => ({
+    startTimer: (state, { payload }: { payload: IntervalTimer }) => ({
       ...state,
       isTimerActive: true,
       intervalID: payload,
@@ -116,6 +116,7 @@ export const {
   startTimer,
   tick,
   completeCycle,
+  setCycleMode,
 } = timerSlice.actions;
 
 export default timerSlice.reducer;

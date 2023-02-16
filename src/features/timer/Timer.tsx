@@ -29,34 +29,40 @@ export const Timer = () => {
     dispatch(timerState.startTimer(intervalID));
   };
 
+  const selectMode = (mode: 'work' | 'shortBreak' | 'longBreak') =>
+    () => {
+      dispatch(timerState.setCycleMode(mode));
+      dispatch(timerState.resetTimer());
+    };
+
   return (
-    <div
-      id="pomodoro-timer"
-      className="container-fluid d-flex flex-wrap justify-content-center text-bg-secondary py-5"
-    >
-      <div className="pomodoro-timer__timer-display">
-        <h1 className="pomodoro-timer__time-display px-5 fw-semibold">{formatTime()}</h1>
+    <div id="pomodoro-timer" className="pomodoro-timer">
+      <div className="pomodoro-timer__mode-display">
+        <button className={(currentState.timerMode === 'work' ? 'active' : '')} onClick={selectMode('work')}>
+          Work
+        </button>
+        <button className={(currentState.timerMode === 'shortBreak' ? 'active' : '')} onClick={selectMode('shortBreak')}>
+          Short Break
+        </button>
+        <button className={(currentState.timerMode === 'longBreak' ? 'active' : '')} onClick={selectMode('longBreak')}>
+          Long Break
+        </button>
       </div>
 
-      <div className="pomodoro-timer__controls d-flex flex-nowrap">
-        <button
-          className="pomodoro-timer__start-timer btn btn-success m-1 align-self-center"
-          onClick={startTimer}
-        >
+      <div className="pomodoro-timer__timer-display">
+        {formatTime()}
+      </div>
+
+      <div className="pomodoro-timer__controls">
+        <button className="pomodoro-timer__start-timer" onClick={startTimer}>
           Start
         </button>
 
-        <button
-          className="pomodoro-timer__stop-timer btn btn-danger m-1 align-self-center"
-          onClick={stopTimer}
-        >
+        <button className="pomodoro-timer__stop-timer" onClick={stopTimer}>
           Stop
         </button>
 
-        <button
-          className="pomodoro-timer__reset-timer btn btn-warning m-1 align-self-center"
-          onClick={resetTimer}
-        >
+        <button className="pomodoro-timer__reset-timer" onClick={resetTimer}>
           Reset
         </button>
       </div>
