@@ -1,0 +1,70 @@
+$color-timer-red: rgb(207, 57, 57);
+$color-timer-green: rgb(23, 160, 23);
+
+.pomodoro-timer {
+  button {
+    border-style: none;
+    border-right: 1px solid $color-bg;
+    padding: 8px;
+    font-size: 1.4em;
+    cursor: pointer;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    @media screen and (max-width: 350px) {
+      border-right: none;
+    }
+  }
+
+  &__mode-display {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    button {
+      background-color: darken($color: $color-accent, $amount: 10);
+
+      &:hover {
+        background-color: darken($color: $color-accent, $amount: 5)
+      }
+
+      &.active {
+        background-color: $color-accent;
+      }
+    }
+
+    @media screen and (max-width: 350px) {
+      flex-direction: column;
+    }
+  }
+
+  &__timer-display {
+    text-align: center;
+    font-size: 4em;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  &__start-timer {
+    background-color: $color-timer-green;
+
+    &:hover {
+      background-color: lighten($color: $color-timer-green, $amount: 10);
+    }
+  }
+
+  &__stop-timer {
+    background-color: $color-timer-red;
+
+    &:hover {
+      background-color: lighten($color: $color-timer-red, $amount: 10)
+    }
+  }
+}
