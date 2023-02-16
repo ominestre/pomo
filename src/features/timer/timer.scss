@@ -44,6 +44,22 @@ $color-timer-green: rgb(23, 160, 23);
   &__timer-display {
     text-align: center;
     font-size: 4em;
+
+    span {
+      padding: 0 15px;
+    }
+
+    .active {
+      border: 2px solid $color-timer-green;
+      // box-shadow: 0 0 5px darken($color: $color-timer-green, $amount: 10);
+      box-shadow: 0 0 5px $color-dark-gray;
+    }
+
+    .paused {
+      border: 2px solid $color-timer-red;
+      // box-shadow: 0 0 5px darken($color: $color-timer-red, $amount: 10);
+      box-shadow: 0 0 5px $color-dark-gray;
+    }
   }
 
   &__controls {
