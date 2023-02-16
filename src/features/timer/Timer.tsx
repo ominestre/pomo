@@ -21,12 +21,14 @@ export const Timer = () => {
   const resetTimer = () => dispatch(timerState.resetTimer());
 
   const startTimer = () => {
-    const intervalID = setInterval(() => {
-      if (currentState.minutes > 0 || currentState.seconds > 0) tick();
-      else stopTimer();
-    }, 1000);
+    if (!currentState.isTimerActive) {
+      const intervalID = setInterval(() => {
+        if (currentState.minutes > 0 || currentState.seconds > 0) tick();
+        else stopTimer();
+      }, 1000);
 
-    dispatch(timerState.startTimer(intervalID));
+      dispatch(timerState.startTimer(intervalID));
+    }
   };
 
   const selectMode = (mode: 'work' | 'shortBreak' | 'longBreak') =>
