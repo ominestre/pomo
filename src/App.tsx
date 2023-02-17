@@ -1,11 +1,17 @@
 import React from 'react';
 import Timer from './features/timer/Timer';
+import Pager from './features/pager/Pager';
 
 function App() {
   return (
-    <header>
-      <Timer />
-    </header>
+    <div className="wrapper">
+      <header>
+        <Timer />
+      </header>
+      <main>
+        <Pager />
+      </main>
+    </div>
   );
 }
 

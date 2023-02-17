@@ -1,0 +1,94 @@
+.pomodoro__add-task-form {
+  margin: 0 auto 20px;
+  width: 350px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h5 {
+    margin: 5px 0;
+  }
+
+  input[type=submit] {
+    margin-top: 10px;
+  }
+}
+
+.pomodoro__task-columns {
+  display: flex;
+  justify-content: center;
+
+  > div {
+    width: 300px;
+    margin-right: 15px;
+    padding: 5px;
+    background-color: $color-ohio;
+    color: $color-dark;
+    display: flex;
+    flex-direction: column;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .highlight {
+    border: 2px solid $color-accent;
+  }
+}
+
+.pomodoro__tasks-card-box {
+  min-height: 300px;
+  flex-grow: 2;
+}
+
+.pomodoro__task-card {
+  cursor: move;
+}
+
+.pomodoro__tasks-column-header {
+  font-size: 1.4em;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+
+  span {
+    text-transform: capitalize;
+  }
+}
+
+.pomodoro__task-card {
+  background-color: $color-light;
+  padding: 7px;
+  margin-bottom: 5px;
+
+  h4 {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &.temp {
+    height: 10px;
+    transition: height 0.15s ease-out;
+  }
+
+  &.temp.expanded{
+    height: 50px;
+    transition: height 0.15s ease-in;
+  }
+}
+
+.pomodoro__drop-zone {
+  background-color: $color-light;
+  margin-bottom: 5px;
+  height: 10px;
+  transition: height 0.15s ease-out;
+
+  &.expanded {
+    height: 50px;
+    transition: height 0.15s ease-in;
+  }
+}
