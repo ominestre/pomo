@@ -26,4 +26,10 @@ header {
   background-color: $color-primary;
 }
 
+.hidden {
+  display: none;
+}
+
 @import "./features/timer/timer";
+@import "./features/pager/pager";
+@import "./features/tasks/tasks";

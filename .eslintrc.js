@@ -21,4 +21,16 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },
+  overrides: [
+    {
+      files: ['src/features/**/*.state.ts'],
+      rules: {
+        /*  justification: Redux Toolkit uses Immer and the maintainers are fairly hostile
+            about providing alternatives. It reduces accidental mutations but with it's
+            WritableDraft it requires writing less functional code. Directly modifying input
+            parameters is their recommended pattern. */
+        'no-param-reassign': 'warn',
+      },
+    },
+  ],
 };
