@@ -1,6 +1,7 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
+        "sourceMap": true,
         "allowSyntheticDefaultImports": true,
         "pretty": true,
         "esModuleInterop": true,
