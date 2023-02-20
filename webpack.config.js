@@ -6,7 +6,7 @@ const { NODE_ENV } = process.env;
 
 module.exports = {
   mode: NODE_ENV || 'development',
-  devtool: NODE_ENV === 'production' ? false : 'source-map',
+  devtool: NODE_ENV === 'production' ? false : 'eval',
   devServer: {
     static: './dist',
   },
