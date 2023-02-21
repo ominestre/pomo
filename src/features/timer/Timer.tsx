@@ -1,3 +1,9 @@
+import { Button, ButtonGroup } from '@mui/material';
+import {
+  PlayArrow as PlayArrowIcon,
+  Pause as PauseIcon,
+  RestartAlt as RestartIcon,
+} from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import * as timerState from './timer.state';
 
@@ -44,37 +50,43 @@ export const Timer = () => {
   return (
     <div id="pomodoro-timer" className="pomodoro-timer">
       <div className="pomodoro-timer__mode-display">
-        <button className={(currentState.timerMode === 'work' ? 'active' : '')} onClick={selectMode('work')}>
-          Work
-        </button>
-        <button className={(currentState.timerMode === 'shortBreak' ? 'active' : '')} onClick={selectMode('shortBreak')}>
-          Short Break
-        </button>
-        <button className={(currentState.timerMode === 'longBreak' ? 'active' : '')} onClick={selectMode('longBreak')}>
-          Long Break
-        </button>
+        <ButtonGroup variant="contained" aria-label="timer work mode button group">
+          <Button
+            onClick={selectMode('work')}
+            className={(currentState.timerMode === 'work' ? 'active' : '')}
+          >Work</Button>
+
+          <Button
+            onClick={selectMode('shortBreak')}
+            className={(currentState.timerMode === 'shortBreak' ? 'active' : '')}
+          >Short Break</Button>
+
+          <Button
+            onClick={selectMode('longBreak')}
+            className={(currentState.timerMode === 'longBreak' ? 'active' : '')}
+          >Long Break</Button>
+        </ButtonGroup>
       </div>
 
       <div className="pomodoro-timer__timer-display">
-        <span className={
-          (currentState.isTimerActive ? 'active' : '') + (currentState.isTimerPaused ? 'paused' : '')
-        }>
-          {formatTime()}
-        </span>
+        { currentState.isTimerActive && <PlayArrowIcon fontSize="large" /> }
+        { currentState.isTimerPaused && <PauseIcon fontSize="large" /> }
+
+        <span className="timer">{formatTime()}</span>
       </div>
 
       <div className="pomodoro-timer__controls">
-        <button className="pomodoro-timer__start-timer" onClick={startTimer}>
-          Start
-        </button>
+        <Button onClick={startTimer} aria-label="start timer" variant="contained" color="success">
+          <PlayArrowIcon fontSize="large" />
+        </Button>
 
-        <button className="pomodoro-timer__stop-timer" onClick={stopTimer}>
-          Stop
-        </button>
+        <Button onClick={stopTimer} aria-label="stop timer" variant="contained" color="error">
+          <PauseIcon fontSize="large" />
+        </Button>
 
-        <button className="pomodoro-timer__reset-timer" onClick={resetTimer}>
-          Reset
-        </button>
+        <Button onClick={resetTimer} aria-label="reset timer" variant="contained" color="info">
+          <RestartIcon fontSize="large" />
+        </Button>
       </div>
     </div>
   );
