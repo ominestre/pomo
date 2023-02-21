@@ -1,7 +1,18 @@
 import type { DragEvent } from 'react';
+import {
+  Stack,
+  Card as CardElement,
+  CardContent,
+  Button,
+  Typography,
+  Box,
+} from '@mui/material';
+import {
+  Add as AddIcon,
+  Remove as RemoveIcon,
+} from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import * as tasksState from './tasks.state';
-import NewTaskForm from './NewTaskForm';
 
 import type { Card, CardCollection } from './tasks.state';
 
@@ -58,25 +69,30 @@ const TaskCard = (props: TaskCardProps) => {
   };
 
   return (
-    <div
+    <CardElement
       className="pomodoro__task-card"
       draggable="true"
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <h4>
-        <span>{props.title}</span>
-        <button onClick={() => dispatch(tasksState.removeCard(props.uuid))}>( - )</button>
-      </h4>
-      <p>{props.body}</p>
-    </div>
+      <CardContent>
+        <Typography className="task-card-header" variant="h5" component="div">
+          {props.title}
+          <Button variant="contained" onClick={() => dispatch(tasksState.removeCard(props.uuid))}>
+            <RemoveIcon fontSize="small" />
+          </Button>
+        </Typography>
+        <Typography variant="body2">{props.body}</Typography>
+      </CardContent>
+    </CardElement>
   );
 };
 
 const TaskColumn = (props: { name: 'todo' | 'doing' | 'done' }) => {
+  const dispatch = useAppDispatch();
   const currentState = useAppSelector(state => state.tasks);
 
-  const columnClassName = `pomodoro__${props.name}-tasks`;
+  const columnClassName = `pomodoro__${props.name}-tasks pomodoro__task-column`;
 
   const getCardsInColumn = (cards: CardCollection) => {
     const arrayOfCards = Object.values(cards);
@@ -101,40 +117,36 @@ const TaskColumn = (props: { name: 'todo' | 'doing' | 'done' }) => {
   };
 
   const addNewCard = () => {
-    const container = document.querySelector('.pomodoro__add-task-form');
-    container?.classList.remove('hidden');
-    container?.querySelector('.column-input')?.setAttribute('value', props.name);
+    dispatch(tasksState.addCard({
+      column: props.name,
+      title: 'New task...',
+      body: 'Edit me!',
+    }));
   };
 
   return (
-    <div className={columnClassName}>
+    <Stack className={columnClassName} spacing={2} onDragOver={event => event.preventDefault()}>
       <div className="pomodoro__tasks-column-header">
         <span>{props.name}</span>
         <div className="pomodoro__task-column-controls">
-          <button onClick={addNewCard}>( + )</button>
+          <Button variant="contained" onClick={addNewCard}>
+            <AddIcon fontSize="small" />
+          </Button>
         </div>
       </div>
 
-      <div
-        className="pomodoro__tasks-card-box"
-        onDragOver={event => event.preventDefault()}
-      >
-        <DropZone column={props.name} position={1} />
-        {getCardsInColumn(currentState.cards)}
-      </div>
-    </div>
+      <DropZone column={props.name} position={1} />
+      {getCardsInColumn(currentState.cards)}
+    </Stack>
   );
 };
 
 export const Tasks = () => (
-  <div className="pomodoro__task-board">
-    <NewTaskForm />
-    <div className="pomodoro__task-columns">
-      <TaskColumn name="todo" />
-      <TaskColumn name="doing" />
-      <TaskColumn name="done" />
-    </div>
-  </div>
+  <Box className="pomodoro__task-board">
+    <TaskColumn name="todo" />
+    <TaskColumn name="doing" />
+    <TaskColumn name="done" />
+  </Box>
 );
 
 export default Tasks;
