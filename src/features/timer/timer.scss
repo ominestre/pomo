@@ -1,86 +1,33 @@
-$color-timer-red: rgb(207, 57, 57);
-$color-timer-green: rgb(23, 160, 23);
+.pomodoro-timer__mode-display {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
 
-.pomodoro-timer {
+  button.active {
+    filter: brightness(80%);
+  }
+}
+
+.pomodoro-timer__timer-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .timer {
+    font-size: 4em;
+  }
+}
+
+.pomodoro-timer__controls {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+
   button {
-    border-style: none;
-    border-right: 1px solid $color-bg;
-    padding: 8px;
-    font-size: 1.4em;
-    cursor: pointer;
+    margin-right: 10px;
 
     &:last-child {
-      border-right: none;
-    }
-
-    @media screen and (max-width: 350px) {
-      border-right: none;
-    }
-  }
-
-  &__mode-display {
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    button {
-      background-color: darken($color: $color-accent, $amount: 10);
-
-      &:hover {
-        background-color: darken($color: $color-accent, $amount: 5)
-      }
-
-      &.active {
-        background-color: $color-accent;
-      }
-    }
-
-    @media screen and (max-width: 350px) {
-      flex-direction: column;
-    }
-  }
-
-  &__timer-display {
-    text-align: center;
-    font-size: 4em;
-
-    span {
-      padding: 0 15px;
-    }
-
-    .active {
-      border: 2px solid $color-timer-green;
-      // box-shadow: 0 0 5px darken($color: $color-timer-green, $amount: 10);
-      box-shadow: 0 0 5px $color-dark-gray;
-    }
-
-    .paused {
-      border: 2px solid $color-timer-red;
-      // box-shadow: 0 0 5px darken($color: $color-timer-red, $amount: 10);
-      box-shadow: 0 0 5px $color-dark-gray;
-    }
-  }
-
-  &__controls {
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-  }
-
-  &__start-timer {
-    background-color: $color-timer-green;
-
-    &:hover {
-      background-color: lighten($color: $color-timer-green, $amount: 10);
-    }
-  }
-
-  &__stop-timer {
-    background-color: $color-timer-red;
-
-    &:hover {
-      background-color: lighten($color: $color-timer-red, $amount: 10)
+      margin-right: none;
     }
   }
 }
