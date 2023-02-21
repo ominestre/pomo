@@ -1,3 +1,8 @@
+import {
+  Button,
+  ButtonGroup,
+} from '@mui/material';
+
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import * as pagerState from './pager.state';
 import Tasks from '../tasks/Tasks';
@@ -14,14 +19,31 @@ export const Pager = () => {
   return (
     <div className="pomodoro-pager">
       <div className="pomodoro-pager__controls">
-        <button className={currentState.pageName === 'tasks' ? 'active' : ''} onClick={selectPage('tasks')}>Tasks</button>
-        <button className={currentState.pageName === 'howTo' ? 'active' : ''} onClick={selectPage('howTo')}>How to use</button>
-        <button className={currentState.pageName === 'settings' ? 'active' : ''} onClick={selectPage('settings')}>Settings</button>
+        <ButtonGroup variant="text" aria-label="page navigation">
+          <Button
+            onClick={selectPage('tasks')}
+            className={currentState.pageName === 'tasks' ? 'active' : ''}
+          >
+            Tasks
+          </Button>
+
+          <Button
+            onClick={selectPage('howTo')}
+            className={currentState.pageName === 'howTo' ? 'active' : ''}
+          >
+            How to use
+          </Button>
+
+          <Button
+            onClick={selectPage('settings')}
+            className={currentState.pageName === 'settings' ? 'active' : ''}
+          >
+            Settings
+          </Button>
+        </ButtonGroup>
       </div>
       <div className="pomodoro-pager__content">
-        { currentState.pageName === 'tasks'
-          && <Tasks />
-        }
+        { currentState.pageName === 'tasks' && <Tasks /> }
       </div>
     </div>
   );
