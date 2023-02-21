@@ -1,25 +1,9 @@
 .pomodoro-pager__controls {
-  padding: 10px 0;
   display: flex;
   justify-content: center;
+  padding: 10px 0;
 
-  button {
-    border-style: none;
-    font-size: 1.2em;
-    margin-right: 10px;
-    padding: 5px 10px;
-    background-color: $color-accent;
-
-    &.active {
-      background-color: lighten($color: $color-accent, $amount: 10);
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    &:hover {
-      background-color: lighten($color: $color-accent, $amount: 10);
-    }
+  button.active {
+    text-decoration: underline;
   }
 }
