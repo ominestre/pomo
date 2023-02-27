@@ -7,20 +7,13 @@
   .pomodoro__task-column {
     min-width: 300px;
     flex-grow: 1;
+    flex-basis: 33%;
 
     .pomodoro__tasks-column-header {
       display: flex;
       justify-content: space-between;
       margin-bottom: 5px;
       font-size: 1.4em;
-    }
-  }
-
-  .task-card-header {
-    display: flex;
-
-    button {
-      margin-left: auto;
     }
   }
 }
@@ -38,5 +31,36 @@
   &.expanded {
     height: 100px;
     transition: height 0.15s ease-in;
+  }
+}
+
+.pomodoro__card-content {
+  display: flex;
+
+  .card-content-title {
+    margin-bottom: 5px;
+  }
+
+  .card-content-column-data {
+    flex-grow: 1;
+    padding-right: 5px;
+  }
+
+  .card-content-column-controls {
+    margin-left: auto;
+    flex-basis: 32px;
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin-bottom: 5px;
+    }
+  }
+
+  .task-card-header {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 5px;
   }
 }

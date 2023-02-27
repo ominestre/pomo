@@ -9,6 +9,7 @@ export interface Card {
   body: string,
   position: number,
   column: ColumnName,
+  isEditMode: boolean,
 }
 
 interface AddCardPayload {
@@ -17,6 +18,21 @@ interface AddCardPayload {
 
 interface MoveCardPayload {
   payload: Pick<Card, 'uuid' | 'column' | 'position'>,
+}
+
+interface ChangeCardPayload {
+  payload: {
+    uuid: string,
+    body?: string,
+    title?: string,
+  },
+}
+
+interface EditCardPayload {
+  payload: {
+    uuid: string,
+    isEditMode: boolean,
+  }
 }
 
 export type CardCollection = Record<string, Card>;
@@ -61,6 +77,7 @@ export const tasksSlice = createSlice({
         body: payload.body,
         position: 1,
         column: payload.column,
+        isEditMode: false,
       };
     },
 
@@ -82,6 +99,23 @@ export const tasksSlice = createSlice({
       indexedCards[payload.uuid].column = payload.column;
       indexedCards[payload.uuid].position = payload.position;
     },
+
+    changeCard: (state, { payload }: ChangeCardPayload) => {
+      const target = state.cards[payload.uuid];
+      const title = payload.title || target.title;
+      const body = payload.body || target.body;
+
+      state.cards[payload.uuid] = {
+        ...target,
+        title,
+        body,
+        isEditMode: false,
+      };
+    },
+
+    editCard: (state, { payload }: EditCardPayload) => {
+      state.cards[payload.uuid].isEditMode = payload.isEditMode;
+    },
   },
 });
 
@@ -89,6 +123,8 @@ export const {
   addCard,
   removeCard,
   moveCard,
+  changeCard,
+  editCard,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
