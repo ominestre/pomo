@@ -32,5 +32,13 @@ module.exports = {
         'no-param-reassign': 'warn',
       },
     },
+    {
+      files: ['src/features/**/*.tsx'],
+      rules: {
+        /*  justification: It is a React pattern for conditional rendering to have an `&&` operator
+            at the end of the line of the logic encapsulating an element */
+        'operator-linebreak': 'off',
+      },
+    },
   ],
 };

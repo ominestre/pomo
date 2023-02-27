@@ -1,22 +1,30 @@
-import type { DragEvent } from 'react';
+import type {
+  DragEvent,
+  MouseEventHandler,
+} from 'react';
 import {
   Stack,
   Card as CardElement,
   CardContent,
   Button,
+  IconButton,
   Typography,
   Box,
+  TextField,
 } from '@mui/material';
 import {
   Add as AddIcon,
   Remove as RemoveIcon,
+  Edit as EditIcon,
+  Check as CheckIcon,
+  Clear as ClearIcon,
 } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import * as tasksState from './tasks.state';
 
 import type { Card, CardCollection } from './tasks.state';
 
-type TaskCardProps = Pick<Card, 'body' | 'position' | 'title' | 'uuid'>
+type TaskCardProps = Pick<Card, 'body' | 'position' | 'title' | 'uuid' | 'isEditMode'>
 type DropZoneProps = Pick<Card, 'column' | 'position'>
 
 const DropZone = (props: DropZoneProps) => {
@@ -68,21 +76,88 @@ const TaskCard = (props: TaskCardProps) => {
       .forEach(el => el.classList.add('hidden'));
   };
 
+  const handleCardEdit: MouseEventHandler<HTMLButtonElement> = (ev) => {
+    const cardElement = ev.currentTarget.closest('.pomodoro__task-card');
+    const error = new Error('Unable to save card changes');
+
+    if (!(cardElement instanceof HTMLDivElement)) throw error;
+
+    const cardTitleInput = cardElement.querySelector('.card-content-title input');
+    const cardBodyInput = cardElement.querySelector('.card-content-body input');
+
+    if (
+      !(cardTitleInput instanceof HTMLInputElement)
+      || !(cardBodyInput instanceof HTMLInputElement)
+    ) {
+      throw error;
+    }
+
+    dispatch(tasksState.changeCard({
+      uuid: props.uuid,
+      body: cardBodyInput.value,
+      title: cardTitleInput.value,
+    }));
+  };
+
   return (
     <CardElement
       className="pomodoro__task-card"
-      draggable="true"
+      draggable={!props.isEditMode}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <CardContent>
-        <Typography className="task-card-header" variant="h5" component="div">
-          {props.title}
+      <CardContent className="pomodoro__card-content">
+        <div className="card-content-column-data">
+          <div className="card-content-title">
+            {!props.isEditMode &&
+              <Typography className="task-card-header" variant="h5">
+                {props.title}
+              </Typography>
+            }
+
+            {props.isEditMode &&
+              <TextField fullWidth variant="outlined" defaultValue={props.title} />
+            }
+          </div>
+          <div className="card-content-body">
+            {!props.isEditMode &&
+              <Typography variant="body2">
+                {props.body}
+              </Typography>
+            }
+
+            {props.isEditMode &&
+              <TextField fullWidth variant="outlined" defaultValue={props.body} />
+            }
+          </div>
+        </div>
+        <div className="card-content-column-controls">
           <Button variant="contained" onClick={() => dispatch(tasksState.removeCard(props.uuid))}>
             <RemoveIcon fontSize="small" />
           </Button>
-        </Typography>
-        <Typography variant="body2">{props.body}</Typography>
+
+          {!props.isEditMode &&
+            <IconButton onClick={
+              () => dispatch(tasksState.editCard({ uuid: props.uuid, isEditMode: true }))
+            }>
+              <EditIcon />
+            </IconButton>
+          }
+
+          {props.isEditMode &&
+            <IconButton onClick={handleCardEdit}>
+              <CheckIcon />
+            </IconButton>
+          }
+
+          {props.isEditMode &&
+            <IconButton onClick={
+              () => dispatch(tasksState.editCard({ uuid: props.uuid, isEditMode: false }))
+            }>
+              <ClearIcon />
+            </IconButton>
+          }
+        </div>
       </CardContent>
     </CardElement>
   );
@@ -100,13 +175,14 @@ const TaskColumn = (props: { name: 'todo' | 'doing' | 'done' }) => {
     const sortedColumnCards = columnCards.sort((a, b) => a.position - b.position);
 
     return sortedColumnCards.map(val => (
-      <div className="wrapper">
+      <div className="wrapper" key={val.uuid}>
         <TaskCard
           key={val.uuid}
           body={val.body}
           title={val.title}
           position={val.position}
           uuid={val.uuid}
+          isEditMode={val.isEditMode}
         />
         <DropZone
           column={props.name}
