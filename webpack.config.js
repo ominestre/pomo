@@ -6,7 +6,7 @@ const { NODE_ENV } = process.env;
 
 module.exports = {
   mode: NODE_ENV || 'development',
-  devtool: NODE_ENV === 'production' ? false : 'eval',
+  devtool: NODE_ENV === 'production' ? false : 'eval-cheap-module-source-map',
   devServer: {
     static: './dist',
   },
@@ -15,7 +15,7 @@ module.exports = {
   },
   entry: './src/index.tsx',
   output: {
-    path: pathJoin(__dirname, './dist/'),
+    path: NODE_ENV === 'production' ? pathJoin(__dirname, './dist/') : pathJoin(__dirname, './build/'),
     clean: true,
   },
   module: {
