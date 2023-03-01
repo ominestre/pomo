@@ -12,6 +12,7 @@ import {
   Box,
   TextField,
 } from '@mui/material';
+import { red } from '@mui/material/colors';
 import {
   Add as AddIcon,
   Remove as RemoveIcon,
@@ -146,7 +147,7 @@ const TaskCard = (props: TaskCardProps) => {
 
           {props.isEditMode &&
             <IconButton onClick={handleCardEdit}>
-              <CheckIcon />
+              <CheckIcon color="success" />
             </IconButton>
           }
 
@@ -154,7 +155,7 @@ const TaskCard = (props: TaskCardProps) => {
             <IconButton onClick={
               () => dispatch(tasksState.editCard({ uuid: props.uuid, isEditMode: false }))
             }>
-              <ClearIcon />
+              <ClearIcon sx={{ color: red[500] }} />
             </IconButton>
           }
         </div>
