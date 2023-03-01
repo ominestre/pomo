@@ -107,7 +107,7 @@ const TaskCard = (props: TaskCardProps) => {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <CardContent className="pomodoro__card-content">
+      <CardContent className={ `pomodoro__card-content ${props.isEditMode ? 'pomodoro__card-content--edit' : ''}`}>
         <div className="card-content-column-data">
           <div className="card-content-title">
             {!props.isEditMode &&

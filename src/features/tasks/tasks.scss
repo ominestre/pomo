@@ -41,6 +41,11 @@
 
 .pomodoro__card-content {
   display: flex;
+  cursor: move;
+
+  &--edit {
+    cursor: default;
+  }
 
   .card-content-title {
     margin-bottom: 5px;
