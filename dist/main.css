@@ -1,6 +1,3 @@
-/*!*****************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/@fontsource/roboto/300.css ***!
-  \*****************************************************************************************************************************************************************/
 /* roboto-cyrillic-ext-300-normal*/
 @font-face {
   font-family: 'Roboto';
@@ -65,9 +62,6 @@
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
-/*!*****************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/@fontsource/roboto/400.css ***!
-  \*****************************************************************************************************************************************************************/
 /* roboto-cyrillic-ext-400-normal*/
 @font-face {
   font-family: 'Roboto';
@@ -132,9 +126,6 @@
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
-/*!*****************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/@fontsource/roboto/500.css ***!
-  \*****************************************************************************************************************************************************************/
 /* roboto-cyrillic-ext-500-normal*/
 @font-face {
   font-family: 'Roboto';
@@ -199,9 +190,6 @@
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
-/*!*****************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/@fontsource/roboto/700.css ***!
-  \*****************************************************************************************************************************************************************/
 /* roboto-cyrillic-ext-700-normal*/
 @font-face {
   font-family: 'Roboto';
@@ -266,117 +254,4 @@
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
-/*!*******************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
-  \*******************************************************************************************************************************************************************************/
-body {
-  margin: 0;
-  background-color: #282b28;
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
-  color: #ccc;
-}
-
-header {
-  background-color: #444;
-}
-
-.hidden {
-  display: none;
-}
-
-.pomodoro-timer__mode-display {
-  display: flex;
-  justify-content: center;
-  padding-top: 10px;
-}
-.pomodoro-timer__mode-display button.active {
-  filter: brightness(80%);
-}
-
-.pomodoro-timer__timer-display {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.pomodoro-timer__timer-display .timer {
-  font-size: 4em;
-}
-
-.pomodoro-timer__controls {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 10px;
-}
-.pomodoro-timer__controls button {
-  margin-right: 10px;
-}
-.pomodoro-timer__controls button:last-child {
-  margin-right: none;
-}
-
-.pomodoro-pager__controls {
-  display: flex;
-  justify-content: center;
-  padding: 10px 0;
-}
-.pomodoro-pager__controls button.active {
-  text-decoration: underline;
-}
-
-.pomodoro__task-board {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  gap: 30px;
-}
-.pomodoro__task-board .pomodoro__task-column {
-  min-width: 300px;
-  flex-grow: 1;
-  flex-basis: 33%;
-}
-.pomodoro__task-board .pomodoro__task-column .pomodoro__tasks-column-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-  font-size: 1.4em;
-}
-
-.pomodoro__drop-zone {
-  height: 20px;
-  transition: height 0.15s ease-out;
-  border: 2px solid #4ba3c3;
-  margin: 10px 0;
-}
-.pomodoro__drop-zone:first-child {
-  margin-top: 0;
-}
-.pomodoro__drop-zone.expanded {
-  height: 100px;
-  transition: height 0.15s ease-in;
-}
-
-.pomodoro__card-content {
-  display: flex;
-}
-.pomodoro__card-content .card-content-title {
-  margin-bottom: 5px;
-}
-.pomodoro__card-content .card-content-column-data {
-  flex-grow: 1;
-  padding-right: 5px;
-}
-.pomodoro__card-content .card-content-column-controls {
-  margin-left: auto;
-  flex-basis: 32px;
-  display: flex;
-  flex-direction: column;
-}
-.pomodoro__card-content .card-content-column-controls button {
-  margin-bottom: 5px;
-}
-.pomodoro__card-content .task-card-header {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  margin-bottom: 5px;
-}
+body{margin:0;background-color:#282b28;font-family:"Roboto",Arial,Helvetica,sans-serif;color:#ccc}header{background-color:#444}.hidden{display:none}.pomodoro-timer__mode-display{display:flex;justify-content:center;padding-top:10px}.pomodoro-timer__mode-display button.active{filter:brightness(80%)}.pomodoro-timer__timer-display{display:flex;justify-content:center;align-items:center}.pomodoro-timer__timer-display .timer{font-size:4em}.pomodoro-timer__controls{display:flex;justify-content:center;padding-bottom:10px}.pomodoro-timer__controls button{margin-right:10px}.pomodoro-timer__controls button:last-child{margin-right:none}.pomodoro-pager__controls{display:flex;justify-content:center;padding:10px 0}.pomodoro-pager__controls button.active{text-decoration:underline}.pomodoro__task-board{display:flex;justify-content:center;padding:10px;gap:30px}.pomodoro__task-board .pomodoro__task-column{min-width:300px;max-width:500px;flex-grow:1;flex-basis:33%}.pomodoro__task-board .pomodoro__task-column .pomodoro__tasks-column-header{display:flex;justify-content:space-between;margin-bottom:5px;font-size:1.4em}.pomodoro__drop-zone{height:20px;transition:height .15s ease-out;border:2px solid #4ba3c3;margin:10px 0}.pomodoro__drop-zone:first-child{margin-top:0}.pomodoro__drop-zone.expanded{height:100px;transition:height .15s ease-in}.pomodoro__task-card{cursor:move}.pomodoro__card-content{display:flex;cursor:move}.pomodoro__card-content--edit{cursor:default}.pomodoro__card-content .card-content-title{margin-bottom:5px}.pomodoro__card-content .card-content-column-data{flex-grow:1;padding-right:5px}.pomodoro__card-content .card-content-column-controls{margin-left:auto;flex-basis:32px;display:flex;flex-direction:column}.pomodoro__card-content .card-content-column-controls button{margin-bottom:5px}.pomodoro__card-content .task-card-header{display:flex;gap:5px;align-items:center;margin-bottom:5px}
