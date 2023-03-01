@@ -79,18 +79,18 @@ const TaskCard = (props: TaskCardProps) => {
 
   const handleCardEdit: MouseEventHandler<HTMLButtonElement> = (ev) => {
     const cardElement = ev.currentTarget.closest('.pomodoro__task-card');
-    const error = new Error('Unable to save card changes');
+    const errorMessage = 'Unable to save card changes';
 
-    if (!(cardElement instanceof HTMLDivElement)) throw error;
+    if (!(cardElement instanceof HTMLDivElement)) throw new Error(errorMessage);
 
-    const cardTitleInput = cardElement.querySelector('.card-content-title input');
-    const cardBodyInput = cardElement.querySelector('.card-content-body input');
+    const cardTitleInput = cardElement.querySelector('.card-content-title textarea');
+    const cardBodyInput = cardElement.querySelector('.card-content-body textarea');
 
     if (
-      !(cardTitleInput instanceof HTMLInputElement)
-      || !(cardBodyInput instanceof HTMLInputElement)
+      !(cardTitleInput instanceof HTMLTextAreaElement)
+      || !(cardBodyInput instanceof HTMLTextAreaElement)
     ) {
-      throw error;
+      throw new Error(errorMessage);
     }
 
     dispatch(tasksState.changeCard({
@@ -117,7 +117,7 @@ const TaskCard = (props: TaskCardProps) => {
             }
 
             {props.isEditMode &&
-              <TextField fullWidth variant="outlined" defaultValue={props.title} />
+              <TextField fullWidth multiline variant="outlined" defaultValue={props.title} />
             }
           </div>
           <div className="card-content-body">
@@ -128,7 +128,7 @@ const TaskCard = (props: TaskCardProps) => {
             }
 
             {props.isEditMode &&
-              <TextField fullWidth variant="outlined" defaultValue={props.body} />
+              <TextField fullWidth multiline variant="outlined" defaultValue={props.body} />
             }
           </div>
         </div>
