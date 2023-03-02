@@ -1,3 +1,11 @@
+## v1.0.0-alpha003
+
+### Build and Tools
+
+- Fixes tag deployment workflow to use `main` branch instead of trying to find a branch with same name as tag [change](https://github.com/ominestre/pomo/pull/11/commits/f3e634aa4734949f50fde50f3e7870496cc1912a)
+- Moves docs folder out of `src/` since it's not being built into a doc-site [change](https://github.com/ominestre/pomo/pull/11)
+- Updates build script to set `NODE_ENV` to `production` for webpack
+
 ## v1.0.0-alpha002
 
 ### Tasks UI
