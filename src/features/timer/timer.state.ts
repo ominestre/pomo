@@ -2,8 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 type TimerMode = 'work' | 'shortBreak' | 'longBreak';
 
-type IntervalTimer = ReturnType<typeof setInterval>;
-
 interface SessionLengths {
   work: number,
   shortBreak: number,
@@ -15,7 +13,6 @@ export interface TimerState {
   seconds: number,
   isTimerActive: boolean,
   isTimerPaused: boolean,
-  intervalID: IntervalTimer | null,
   timerMode: TimerMode,
   cyclesCompleted: number,
   sessionLength: SessionLengths,
@@ -26,7 +23,6 @@ export const initialState: TimerState = {
   seconds: 0,
   isTimerActive: false,
   isTimerPaused: false,
-  intervalID: null,
   timerMode: 'work',
   cyclesCompleted: 0,
   sessionLength: {
@@ -43,8 +39,6 @@ export const timerSlice = createSlice({
 
   reducers: {
     completeCycle: state => {
-      if (state.intervalID !== null) clearInterval(state.intervalID);
-
       let newTimerMode: TimerMode = 'work';
       const { timerMode, cyclesCompleted } = state;
 
@@ -58,7 +52,6 @@ export const timerSlice = createSlice({
 
       return {
         ...state,
-        intervalID: null,
         cyclesCompleted: state.timerMode === 'work'
           ? state.cyclesCompleted + 1
           : state.cyclesCompleted,
@@ -86,36 +79,26 @@ export const timerSlice = createSlice({
       return { ...state, seconds: seconds - 1 };
     },
 
-    startTimer: (state, { payload }: { payload: IntervalTimer }) => ({
+    startTimer: (state) => ({
       ...state,
       isTimerActive: true,
       isTimerPaused: false,
-      intervalID: payload,
     }),
 
-    stopTimer: state => {
-      if (state.intervalID !== null) clearInterval(state.intervalID);
+    stopTimer: state => ({
+      ...state,
+      isTimerActive: false,
+      isTimerPaused: true,
+      intervalID: null,
+    }),
 
-      return {
-        ...state,
-        isTimerActive: false,
-        isTimerPaused: true,
-        intervalID: null,
-      };
-    },
-
-    resetTimer: (state: TimerState) => {
-      if (state.intervalID !== null) clearInterval(state.intervalID);
-
-      return {
-        ...state,
-        intervalID: null,
-        isTimerActive: false,
-        isTimerPaused: false,
-        minutes: state.sessionLength[state.timerMode],
-        seconds: 0,
-      };
-    },
+    resetTimer: (state: TimerState) => ({
+      ...state,
+      isTimerActive: false,
+      isTimerPaused: false,
+      minutes: state.sessionLength[state.timerMode],
+      seconds: 0,
+    }),
   },
 });
 

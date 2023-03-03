@@ -132,10 +132,9 @@ describe('Timer state interactions', () => {
 
   test('Should start and stop a new timer', () => {
     const state: TimerState = { ...initialState };
-    const intervalID = setInterval(() => {}, 1000);
-    const newState = timerReducer(state, startTimer(intervalID));
+    const newState = timerReducer(state, startTimer());
 
-    expect(newState).toMatchObject({ isTimerActive: true, intervalID });
+    expect(newState).toMatchObject({ isTimerActive: true });
 
     expect(timerReducer(newState, stopTimer()))
       .toMatchObject({ isTimerActive: false, intervalID: null });
