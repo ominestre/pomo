@@ -60,6 +60,10 @@ module.exports = {
           'postcss-loader',
         ],
       },
+      {
+        test: /\.(mp3)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [
