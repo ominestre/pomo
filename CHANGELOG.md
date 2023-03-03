@@ -1,3 +1,20 @@
+## v1.0.0-alpha004
+
+### Features
+
+- Plays an alarm sound when a cycle is completed [change](https://github.com/ominestre/pomo/pull/18)
+  - The alarm sound was created using Reaper and Spire Synth
+
+### Bugs
+
+- Fixed an issue where the timer interval was setup incorrectly resulting in the state being fixed at the point of component render. Uses React's `useEffect` to re-evaluate the conditions of the interval whenever the subscribed state changes. [change](https://github.com/ominestre/pomo/pull/18)
+
+
+### Build and Tools
+
+- Configures Webpack and Typescript to support importing audio [change](https://github.com/ominestre/pomo/pull/18)
+- Fixed the build script executing subshell git commands as a result of a poorly formatted string [change](https://github.com/ominestre/pomo/pull/12)
+
 ## v1.0.0-alpha003
 
 ### Build and Tools
