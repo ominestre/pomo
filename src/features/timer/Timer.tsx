@@ -6,6 +6,7 @@ import {
 } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';
 import * as timerState from './timer.state';
+import alarmOne from '../../audio/alarm-001.mp3';
 
 const padLeadingZeros = (val: number | string): string =>
   `00${val}`.slice(-2);
@@ -26,6 +27,13 @@ export const Timer = () => {
     }
   };
 
+  const completeCycle = () => {
+    const alarmAudio = new Audio(alarmOne);
+
+    stopTimer();
+    alarmAudio.play();
+  };
+
   const tick = () => dispatch(timerState.tick());
 
   const resetTimer = () => dispatch(timerState.resetTimer());
@@ -34,7 +42,7 @@ export const Timer = () => {
     if (!currentState.isTimerActive) {
       const intervalID = setInterval(() => {
         if (currentState.minutes > 0 || currentState.seconds > 0) tick();
-        else stopTimer();
+        else completeCycle();
       }, 1000);
 
       dispatch(timerState.startTimer(intervalID));
