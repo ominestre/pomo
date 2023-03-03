@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Button, ButtonGroup } from '@mui/material';
 import {
   PlayArrow as PlayArrowIcon,
@@ -14,6 +15,7 @@ const padLeadingZeros = (val: number | string): string =>
 export const Timer = () => {
   const dispatch = useAppDispatch();
   const currentState = useAppSelector(state => state.timer);
+  const intervalID = useRef<number>();
 
   const formatTime = () => {
     const minutes = padLeadingZeros(currentState.minutes);
@@ -27,33 +29,40 @@ export const Timer = () => {
     }
   };
 
-  const completeCycle = () => {
-    const alarmAudio = new Audio(alarmOne);
-
-    stopTimer();
-    alarmAudio.play();
-  };
-
-  const tick = () => dispatch(timerState.tick());
-
   const resetTimer = () => dispatch(timerState.resetTimer());
 
-  const startTimer = () => {
-    if (!currentState.isTimerActive) {
-      const intervalID = setInterval(() => {
-        if (currentState.minutes > 0 || currentState.seconds > 0) tick();
-        else completeCycle();
-      }, 1000);
-
-      dispatch(timerState.startTimer(intervalID));
-    }
-  };
+  const startTimer = () => dispatch(timerState.startTimer());
 
   const selectMode = (mode: 'work' | 'shortBreak' | 'longBreak') =>
     () => {
       dispatch(timerState.setCycleMode(mode));
       dispatch(timerState.resetTimer());
     };
+
+  useEffect(
+    () => {
+      const alarmAudio = new Audio(alarmOne);
+      intervalID.current = window.setInterval(() => {
+        const hasTimeLeft = currentState.minutes > 0 || currentState.seconds > 0;
+
+        if (currentState.isTimerActive && hasTimeLeft) dispatch(timerState.tick());
+
+        if (currentState.isTimerActive && !hasTimeLeft) {
+          alarmAudio.play();
+          window.clearInterval(intervalID.current);
+          dispatch(timerState.completeCycle());
+        }
+      }, 1000);
+
+      return () => window.clearInterval(intervalID.current);
+    },
+    [
+      currentState.isTimerActive,
+      currentState.minutes,
+      currentState.seconds,
+      dispatch,
+    ],
+  );
 
   return (
     <div id="pomodoro-timer" className="pomodoro-timer">
